@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libxml2-dev \
     libhdf5-dev \
-
     && apt-get clean
 
 # Install quarto
@@ -40,6 +39,9 @@ COPY renv.lock /analysis/
 # Install important R packages for jupyter and others
 RUN Rscript -e "install.packages(c('IRkernel', 'languageserver', 'rmarkdown'))"
 RUN Rscript -e "remotes::install_github('rstudio/renv@v1.1.1')"
+
+# Install dependencies that are better installed through Bioconductor directly
+RUN Rscript -e "BiocManager::install(c('cytolib', 'CATALYST'))"
 
 # Activate Jupyter R Kernel
 RUN Rscript -e "IRkernel::installspec(user = FALSE)"
