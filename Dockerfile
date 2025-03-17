@@ -37,7 +37,7 @@ WORKDIR /analysis
 COPY renv.lock /analysis/
 
 # Install important R packages for jupyter and others
-RUN Rscript -e "install.packages(c('IRkernel', 'languageserver', 'rmarkdown'))"
+RUN Rscript -e "install.packages(c('IRkernel', 'languageserver', 'rmarkdown', 'BiocManager'))"
 RUN Rscript -e "remotes::install_github('rstudio/renv@v1.1.1')"
 
 # Install dependencies that are better installed through Bioconductor directly
